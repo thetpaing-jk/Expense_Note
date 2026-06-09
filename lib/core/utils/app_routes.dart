@@ -50,7 +50,10 @@ class AppRoutes {
                 )
               ])
             ], builder: (context, state, navigationshellRoute){
-              return RootWidget(navigationShell: navigationshellRoute);
+              return RootWidget(
+                navigationShell: navigationshellRoute,
+                currentPath: state.uri.path,
+              );
             }
           ),
         ],

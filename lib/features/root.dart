@@ -3,22 +3,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/utils/app_color.dart';
+import '../core/utils/app_const.dart';
 import '../core/widgets/expense_btnsheet_widget.dart';
 
 
 class RootWidget extends ConsumerStatefulWidget {
   final StatefulNavigationShell navigationShell;
-  const RootWidget({super.key, required this.navigationShell});
+  final String currentPath;
+  const RootWidget({
+    super.key,
+    required this.navigationShell,
+    required this.currentPath,
+  });
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _RootWidgetState();
 }
 class _RootWidgetState extends ConsumerState<RootWidget> {
   @override
   Widget build(BuildContext context) {
+    final bool isExpenseDetail = widget.currentPath == AppConst.expenseDetail;
+
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: AppColor.cardBackgroundColor,
+        leading: isExpenseDetail ? BackButton(
+          onPressed: (){
+            context.pop();
+          },
+        ): null,
         title: Text(widget.navigationShell.currentIndex == 0 ? "Expneses" : "Expnese Types", style: TextTheme.of(context).headlineSmall,),
       ),
       body: widget.navigationShell,
