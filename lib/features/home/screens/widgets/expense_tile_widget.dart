@@ -2,9 +2,11 @@ import 'package:expense_note/features/home/screens/providers/expense_provider_st
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/services/app_number_formatter.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/app_const.dart';
 import '../../../../core/widgets/expense_btnsheet_widget.dart';
 import '../../data/models/expense_model.dart';
 import '../models/expense_tile_model.dart' show ExpenseTileModel;
@@ -56,6 +58,9 @@ class ExpenseTileWidget extends ConsumerWidget {
       ]),
       
       child: ListTile(
+        onTap: (){
+          context.pushNamed(AppConst.expenseDetail, extra: expenseTileModel);
+        },
         title: Text(expenseTileModel.title, style: TextTheme.of(context).titleMedium,),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
